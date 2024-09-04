@@ -1,11 +1,22 @@
-##Laravel employee management system with livewire. 
+## Laravel employee management (basic)
+
 ```bash
    composer install
 ```
 ```bash
    configure .env file
 ```
-3. php artisan:migrate
-4. php artisan db:seed
-5. Credentials : email : user@user.com /  username : user , password : password
+```bash
+   php artisan:migrate
+```
 
+```bash
+   php artisan db:seed
+```
+
+### Credentials :
+```bash
+  email: user@user.com
+  username : user
+  password : password 
+```
