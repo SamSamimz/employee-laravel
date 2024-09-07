@@ -10,7 +10,7 @@
         <form wire:submit.prevent='loginUser()'>
             <div class="mb-3">
                 <label for="username" class="form-label">Username/Email :</label>
-                <input wire:model='username' type="text" name="username" class="form-control" placeholder="Your Email..." autofocus>
+                <input wire:model='username' type="text" name="username" class="form-control" placeholder="Your email or username..." autofocus>
                 @error('username')
                 <p class="text-danger">{{$message}}</p>
                 @enderror

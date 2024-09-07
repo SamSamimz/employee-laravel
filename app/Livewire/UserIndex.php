@@ -2,13 +2,15 @@
 
 namespace App\Livewire;
 
-use App\Models\Department;
 use App\Models\User;
-use Illuminate\Validation\Rule;
+use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class UserIndex extends Component
 {
+    use WithPagination;
+    use LivewireAlert;
     public $search = '';
     public $username = '';
     public $first_name = '';
@@ -19,58 +21,59 @@ class UserIndex extends Component
     public $filterUser = null;
     public $userId = null;
     protected $rules = [
-        'username' => 'required|min:3',
+        'username'   => 'required|min:3',
         'first_name' => 'required|string',
-        'last_name' => 'required|string',
-        'email' => ['required','string','email'],
-        'address' => 'required|string',
-        'phone' => 'required',
+        'last_name'  => 'required|string',
+        'email'      => ['required','string','email'],
+        'address'    => 'required|string',
+        'phone'      => 'required',
     ];
-    
+
     public function editUser(User $user) {
         $this->openModal();
-        $this->userId = $user->id;
-        $this->username = $user->username;
+        $this->userId     = $user->id;
+        $this->username   = $user->username;
         $this->first_name = $user->first_name;
-        $this->last_name = $user->last_name;
-        $this->address = $user->address;
-        $this->email = $user->email;
-        $this->phone = $user->phone;
+        $this->last_name  = $user->last_name;
+        $this->address    = $user->address;
+        $this->email      = $user->email;
+        $this->phone      = $user->phone;
     }
 
     public function deleteUser(User $user) {
         $user->delete();
+        $this->alert('success','User deleted successfully');
         $this->reset();
     }
-    
+
     public function addUser() {
         $this->validate();
         if($this->userId) {
             User::find($this->userId)->update([
-                'username' => $this->username,
+                'username'   => $this->username,
                 'first_name' => $this->first_name,
-                'last_name' => $this->last_name,
-                'email' => $this->email,
-                'address' => $this->address,
-                'phone' => $this->phone,
+                'last_name'  => $this->last_name,
+                'email'      => $this->email,
+                'address'    => $this->address,
+                'phone'      => $this->phone,
             ]);
         }else {
             User::create(
                 [
-                    'username' => $this->username,
+                    'username'   => $this->username,
                     'first_name' => $this->first_name,
-                    'last_name' => $this->last_name,
-                    'email' => $this->email,
-                    'address' => $this->address,
-                    'phone' => $this->phone,
-                    'password' => bcrypt('password'),
+                    'last_name'  => $this->last_name,
+                    'email'      => $this->email,
+                    'address'    => $this->address,
+                    'phone'      => $this->phone,
+                    'password'   => bcrypt('password'),
                 ]
             );
         }
         $this->reset();
         $this->closeModal();
     }
-    
+
     public function openModal() {
         if(!$this->userId) {
             $this->reset();

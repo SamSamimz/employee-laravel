@@ -8,7 +8,7 @@
                    @forelse ($departments as $dp)
                        <option value="{{$dp->id}}">{{$dp->name}}</option>
                    @empty
-                       
+
                    @endforelse
                 </select>
             </div>
@@ -51,17 +51,17 @@
                         <td>{{$employee->hired_date}}</td>
                         <td class="d-flex">
                             <button wire:click='editEmployee({{$employee}})' class="btn btn-default btn-xs m-r-5" data-toggle="tooltip" data-original-title="Edit"><i class="fa fa-pencil font-14"></i></button>
-                            <button wire:click='deleteEmployee({{$employee}})' class="btn btn-default btn-xs" data-toggle="tooltip" data-original-title="Delete"><i class="fa fa-trash font-14"></i></button>
+                            <button wire:click='deleteEmployee({{$employee}})' wire:confirm='Are you sure want to delete?' class="btn btn-default btn-xs" data-toggle="tooltip" data-original-title="Delete"><i class="fa fa-trash font-14"></i></button>
                         </td>
                     </tr>
                     @empty
-                        
+
                     @endforelse
                 </tbody>
             </table>
         </div>
         <div class="d-flex justify-content-end">
-            {{$employees->links('pagination::bootstrap-4')}}
+            {{$employees->links()}}
         </div>
     </div>
 </div>
